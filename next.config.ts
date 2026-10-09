@@ -1,20 +1,34 @@
 import type { NextConfig } from "next";
+import { withSerwist } from "@serwist/turbopack";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  allowedDevOrigins: ["192.168.1.222"],
   experimental: {
-    agentFeedback: true,
+    optimizePackageImports: ["lucide-react", "@tanstack/react-query"],
   },
-  cacheComponents: true,
-  partialPrefetching: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
+  poweredByHeader: false,
+  compress: true,
+  async headers() {
+    return [
+      {
+        source: "/manifest.json",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/manifest+json",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600",
+          },
+        ],
       },
-    },
+    ];
   },
 };
 
-export default nextConfig;
+export default withSerwist(nextConfig);

@@ -1,0 +1,66 @@
+{
+  "name": "Edvora — دستیار هوشمند آموزش‌دهنده",
+  "short_name": "Edvora",
+  "description": "مدیریت شاگردها، جلسات و حساب‌ها برای هر آموزش‌دهنده",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "fa-IR",
+  "background_color": "#0a0f1e",
+  "theme_color": "#2563eb",
+  "categories": ["education", "productivity", "business"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "شاگردها",
+      "short_name": "شاگردها",
+      "description": "لیست شاگردها",
+      "url": "/students",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "جلسات",
+      "short_name": "جلسات",
+      "description": "لیست جلسات",
+      "url": "/sessions",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "پرداخت‌ها",
+      "short_name": "پرداخت‌ها",
+      "description": "لیست پرداخت‌ها",
+      "url": "/payments",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "افزودن شاگرد",
+      "short_name": "شاگرد جدید",
+      "description": "افزودن شاگرد سریع",
+      "url": "/students/new",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
