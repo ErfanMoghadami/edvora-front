@@ -1,6 +1,7 @@
 import {
   LayoutDashboard,
   Users,
+  GraduationCap,
   Calendar,
   Wallet,
   Settings,
@@ -17,6 +18,7 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { title: "داشبورد", href: ROUTES.DASHBOARD, icon: LayoutDashboard },
   { title: "شاگردها", href: ROUTES.STUDENTS, icon: Users },
+  { title: "کلاس‌ها", href: ROUTES.CLASSES, icon: GraduationCap },
   { title: "جلسات", href: ROUTES.SESSIONS, icon: Calendar },
   { title: "پرداخت‌ها", href: ROUTES.PAYMENTS, icon: Wallet },
   { title: "تنظیمات", href: ROUTES.SETTINGS, icon: Settings },
