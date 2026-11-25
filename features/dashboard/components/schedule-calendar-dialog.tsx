@@ -31,6 +31,7 @@ interface ScheduleCalendarDialogProps {
   classes: ClassItem[];
   colors: Map<string, ClassColor>;
   teacher: string;
+  /** وقتی کاربر یک روز را انتخاب و «نمایش در هفته» را می‌زند */
   onPickDate: (date: GDate) => void;
 }
 
@@ -251,8 +252,4 @@ function CalendarBody({
       )}
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> feature/classes
