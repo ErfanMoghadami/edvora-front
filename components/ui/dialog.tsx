@@ -12,6 +12,8 @@ interface DialogProps {
   description?: string;
   children?: React.ReactNode;
   footer?: React.ReactNode;
+  /** برای تغییر عرض/استایل پنل، مثلاً max-w-3xl */
+  className?: string;
 }
 
 const ANIMATION_DURATION = 200;
@@ -23,6 +25,7 @@ export function Dialog({
   description,
   children,
   footer,
+  className,
 }: DialogProps) {
   const [mounted, setMounted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -67,7 +70,7 @@ export function Dialog({
       <div
         className={cn(
           "absolute inset-0 bg-black/50 backdrop-blur-sm",
-          isClosing ? "animate-fade-out" : "animate-fade-in"
+          isClosing ? "animate-fade-out" : "animate-fade-in",
         )}
         onClick={handleClose}
         aria-hidden="true"
@@ -75,16 +78,15 @@ export function Dialog({
       <div
         className={cn(
           "relative w-full max-w-md rounded-xl border border-border bg-card p-6 shadow-xl",
-          isClosing ? "animate-fade-out" : "animate-slide-up"
+          isClosing ? "animate-fade-out" : "animate-slide-up",
+          className,
         )}
         role="dialog"
         aria-modal="true"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
-            <h2 className="text-base font-semibold text-foreground">
-              {title}
-            </h2>
+            <h2 className="text-base font-semibold text-foreground">{title}</h2>
             {description && (
               <p className="text-sm text-muted-foreground">{description}</p>
             )}
@@ -108,6 +110,6 @@ export function Dialog({
         )}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

@@ -251,4 +251,8 @@ function CalendarBody({
       )}
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> feature/classes
