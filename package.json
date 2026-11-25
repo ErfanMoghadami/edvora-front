@@ -42,5 +42,20 @@
     "serwist": "^9.5.13",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdvoraTeam/edvora-front.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/EdvoraTeam/edvora-front/issues"
+  },
+  "homepage": "https://github.com/EdvoraTeam/edvora-front#readme"
 }
