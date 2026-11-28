@@ -53,7 +53,9 @@ export function clearClassDraft(): void {
 
 /** شاگرد تازه‌ساخته‌شده را به پیش‌نویس کلاس اضافه می‌کند */
 export function addStudentToClassDraft(student: DraftStudent): void {
-  const draft = readClassDraft() ?? { students: [] };
+  const draft: Pick<ClassDraft, "values" | "students"> = readClassDraft() ?? {
+    students: [],
+  };
   if (draft.students.some((s) => s.id === student.id)) return;
   saveClassDraft({
     values: draft.values,
