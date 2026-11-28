@@ -10,6 +10,7 @@ import { PersianDatePicker } from "@/components/ui/persian-date-picker";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn, formatCurrency } from "@/lib/utils";
 import { SESSION_DURATIONS, ROUTES } from "@/lib/constants";
+import { isFromClass } from "@/features/classes/lib/draft";
 import { calculateFinancials } from "../lib/calculations";
 import { studentSchema, type StudentFormValues } from "../lib/validation";
 import type {
@@ -80,7 +81,7 @@ export function StudentForm({
   }
 
   function handleCancel() {
-    router.push(ROUTES.STUDENTS);
+    router.push(isFromClass() ? `${ROUTES.CLASSES}/new` : ROUTES.STUDENTS);
   }
 
   return (

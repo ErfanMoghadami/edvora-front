@@ -15,6 +15,10 @@ import {
 import { getErrorMessage } from "@/lib/api-client";
 import { calculateFinancials } from "../lib/calculations";
 import { ROUTES } from "@/lib/constants";
+import {
+  addStudentToClassDraft,
+  isFromClass,
+} from "@/features/classes/lib/draft";
 import type { Student, StudentInput } from "@/types/student";
 
 export function useStudents(searchQuery = "") {
@@ -72,6 +76,16 @@ export function useCreateStudent() {
     onSuccess: (student) => {
       queryClient.invalidateQueries({ queryKey: ["students"] });
       toast.success(`${student.name} با موفقیت اضافه شد`);
+      if (isFromClass()) {
+        // از فرم ساخت کلاس آمده بود: شاگرد را به پیش‌نویس اضافه کن و برگرد
+        addStudentToClassDraft({
+          id: student.id,
+          name: student.name,
+          phone: student.phone,
+        });
+        router.push(`${ROUTES.CLASSES}/new`);
+        return;
+      }
       router.push(ROUTES.STUDENTS);
     },
     onError: (error) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, Controller, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,11 +12,15 @@ import { getInitials, toPersianDigits } from "@/lib/utils";
 import { ROUTES } from "@/lib/constants";
 import { classSchema, type ClassFormValues } from "../lib/validation";
 import { calcDuration } from "../lib/weekdays";
+import {
+  clearClassDraft,
+  readClassDraft,
+  saveClassDraft,
+} from "../lib/draft";
 import { SectionTitle } from "./section-title";
 import { WeekdayPicker } from "./weekday-picker";
 import { TermSelect } from "./term-select";
 import { AddExistingStudentsDialog } from "./add-existing-students-dialog";
-import { QuickStudentDialog } from "./quick-student-dialog";
 import type { ClassInput } from "@/types/class";
 import type { Student } from "@/types/student";
 
@@ -30,13 +34,14 @@ export function ClassForm({ onSubmit }: ClassFormProps) {
   const router = useRouter();
   const [students, setStudents] = useState<SelectedStudent[]>([]);
   const [existingOpen, setExistingOpen] = useState(false);
-  const [quickOpen, setQuickOpen] = useState(false);
 
   const {
     register,
     control,
     handleSubmit,
     watch,
+    getValues,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ClassFormValues>({
     resolver: yupResolver(classSchema) as unknown as Resolver<ClassFormValues>,
@@ -51,18 +56,28 @@ export function ClassForm({ onSubmit }: ClassFormProps) {
     },
   });
 
+  // بعد از برگشت از صفحه‌ی «افزودن شاگرد»، فرم و شاگردهای انتخاب‌شده برمی‌گردند
+  useEffect(() => {
+    const draft = readClassDraft();
+    if (!draft) return;
+    if (draft.values) reset({ ...getValues(), ...draft.values });
+    setStudents(draft.students);
+    clearClassDraft();
+    // فقط یک‌بار هنگام mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function goToNewStudent() {
+    saveClassDraft({ values: getValues(), students });
+    router.push(`${ROUTES.STUDENTS}/new?from=class`);
+  }
+
   const startTime = watch("startTime");
   const endTime = watch("endTime");
   const duration = calcDuration(startTime, endTime);
 
   function removeStudent(id: string) {
     setStudents((prev) => prev.filter((s) => s.id !== id));
-  }
-
-  function addCreatedStudent(student: SelectedStudent) {
-    setStudents((prev) =>
-      prev.some((s) => s.id === student.id) ? prev : [...prev, student]
-    );
   }
 
   async function submit(values: ClassFormValues) {
@@ -185,7 +200,7 @@ export function ClassForm({ onSubmit }: ClassFormProps) {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setQuickOpen(true)}
+                  onClick={goToNewStudent}
                 >
                   <UserPlus className="h-4 w-4" />
                   تعریف دانش‌آموز جدید
@@ -239,11 +254,6 @@ export function ClassForm({ onSubmit }: ClassFormProps) {
         onClose={() => setExistingOpen(false)}
         selected={students}
         onConfirm={setStudents}
-      />
-      <QuickStudentDialog
-        open={quickOpen}
-        onClose={() => setQuickOpen(false)}
-        onCreated={addCreatedStudent}
       />
     </>
   );

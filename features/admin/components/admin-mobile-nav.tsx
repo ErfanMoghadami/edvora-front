@@ -90,7 +90,7 @@ export function AdminMobileNav() {
 
             <aside
               className={cn(
-                "fixed right-0 top-0 z-[70] flex h-screen w-72 max-w-[85vw] flex-col border-l border-border bg-card shadow-2xl lg:hidden",
+                "fixed right-0 top-0 z-[70] flex h-dvh w-72 max-w-[85vw] flex-col border-l border-border bg-card shadow-2xl lg:hidden",
                 isClosing
                   ? "animate-slide-out-right"
                   : "animate-slide-in-right",
